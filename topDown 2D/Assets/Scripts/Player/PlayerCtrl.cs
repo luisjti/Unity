@@ -4,8 +4,11 @@ using UnityEngine;
 
 namespace Cainos.PixelArtTopDown_Basic
 {
-    public class TopDownCharacterController : MonoBehaviour
+    public class PlayerCtrl : MonoBehaviour
     {
+
+        public PlayerClass playerClass;
+
         public float speed;
 
         private Animator animator;
@@ -13,6 +16,8 @@ namespace Cainos.PixelArtTopDown_Basic
         private void Start()
         {
             animator = GetComponent<Animator>();
+            speed = playerClass.velocidadeMovimento;
+            GetComponent<SpriteRenderer>().color = playerClass.corLuz;
         }
 
 
@@ -39,6 +44,16 @@ namespace Cainos.PixelArtTopDown_Basic
             {
                 dir.y = -1;
                 animator.SetInteger("Direction", 0);
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
+            {
+                speed *= 2.5f;
+            }
+            
+            if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift))
+            {
+                speed /= 2.5f;
             }
 
             dir.Normalize();
