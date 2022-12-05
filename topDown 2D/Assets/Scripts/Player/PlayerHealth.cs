@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     public FloatVariavel vidaAtual, vidaMaxima;
+    private float ataque = 1;
 
     private void TakeDamage (float quantidade)
     {
@@ -22,6 +23,17 @@ public class PlayerHealth : MonoBehaviour
         if (vidaAtual.valor > vidaMaxima.valor)
         {
             vidaAtual.valor = vidaMaxima.valor;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.tag == "Enemy"){
+            InimigoVida inimigo = other.GetComponent<InimigoVida>();
+            if (inimigo != null)
+            {
+                inimigo.tomarDano(ataque);
+                Debug.Log($"Tentei causar {ataque} de dano no inimigo");
+            }
         }
     }
 }

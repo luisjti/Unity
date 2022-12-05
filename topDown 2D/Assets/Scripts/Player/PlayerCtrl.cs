@@ -6,17 +6,22 @@ namespace Cainos.PixelArtTopDown_Basic
 {
     public class PlayerCtrl : MonoBehaviour
     {
-
-        public PlayerClass playerClass;
+        [SerializeField]
+        private PlayerClass playerClass;
 
         public float speed;
 
         private Animator animator;
 
+        private Rigidbody2D rb;
+
+        private int constanteMultiplicacao = 100;
+
         private void Start()
         {
-            animator = GetComponent<Animator>();
             speed = playerClass.velocidadeMovimento;
+            animator = GetComponent<Animator>();
+            rb =  GetComponent<Rigidbody2D>();
             GetComponent<SpriteRenderer>().color = playerClass.corLuz;
         }
 
@@ -59,7 +64,8 @@ namespace Cainos.PixelArtTopDown_Basic
             dir.Normalize();
             animator.SetBool("IsMoving", dir.magnitude > 0);
 
-            GetComponent<Rigidbody2D>().velocity = speed * dir;
+           rb.velocity = speed * dir * constanteMultiplicacao * Time.deltaTime;
+        
         }
     }
 }

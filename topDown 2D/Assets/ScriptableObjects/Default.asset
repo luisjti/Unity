@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nome: Geo
   vida: 10
-  velocidadeMovimento: 7
+  velocidadeMovimento: 3.3
   corLuz: {r: 0, g: 1, b: 0.009311438, a: 0}
