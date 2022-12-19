@@ -26,7 +26,7 @@ public class PlayerAtack : MonoBehaviour
     private LayerMask layersAtacaveis;
 
     [SerializeField]
-    private PlayerCtrl jogador;
+    private PlayerMoves jogador;
 
     public Transform pontoDeAtaque;
 

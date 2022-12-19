@@ -39,12 +39,14 @@ public class EnemyLife : MonoBehaviour
         }
     }
 
+    /*
     IEnumerator MudarCorSofreuDano()
     {
         if (sprite != null){
             sprite.color = Color.red;
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSecondsRealtime(0.3f);
             sprite.color = corPadrao;
         }
     }
+    */
 }

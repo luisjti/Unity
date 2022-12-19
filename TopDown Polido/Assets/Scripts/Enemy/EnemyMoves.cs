@@ -25,7 +25,6 @@ public class EnemyMoves : MonoBehaviour
     [SerializeField]
     private LayerMask layersBuscaveis;
 
-    //[SerializeField]
     private Transform alvo;
 
     void Update()
@@ -60,7 +59,7 @@ public class EnemyMoves : MonoBehaviour
         Vector2 posicaoAlvo = this.alvo.position;
         Vector2 posicaoAtual = this.transform.position;
 
-        float distanciaAtual = Vector2.Distance(posicaoAtual, posicaoAlvo); //O quão perto o player tá
+        float distanciaAtual = Vector2.Distance(posicaoAtual, posicaoAlvo); //O quão perto o player está
 
         if (distanciaAtual > this.distanciaMinima){ //Se ainda não chegou no player
 

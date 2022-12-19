@@ -43,21 +43,32 @@ public class PlayerLife : MonoBehaviour
         }
     }
 
+    public void ReceberVida(float vida) {
+        this.vidaAtualP += Mathf.Abs(vida); //Adiciona a vida do player, a vida que lhe deram
+
+        this.barraDeVidaP.VidaAtualDoSlider = this.vidaAtualP; //Atualiza no slider o dano curado
+
+        if (this.vidaAtualP > this.vidaMaxP){ //Se curar mais que o máximo
+            this.vidaAtualP = this.vidaMaxP; //Limita a vida no máximo
+        }
+    }
+
     IEnumerator PiscarSpriteSofreuDano()
     {
         int i = 0;
         for (; i<10; i++) //Faz isso por dez segundos
         {
             sprite.enabled = false; //Desliga a sprite por 0.1 segundos
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSecondsRealtime(0.05f);
             sprite.enabled = true; //Liga a sprite por 0.1 segundos
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSecondsRealtime(0.05f);
         }
         this.invulneravel = false; //Após a animação de dano, desativa a invulnerabilidade
     }
 
     void ReiniciarLevel ()
     {
-        SceneManager.LoadScene("Nivel Zero");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
 }

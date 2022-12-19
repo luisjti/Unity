@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCtrl : MonoBehaviour
+public class PlayerMoves : MonoBehaviour
 {
     [SerializeField]
     private Rigidbody2D rb;
@@ -10,8 +10,7 @@ public class PlayerCtrl : MonoBehaviour
     [SerializeField]
     private SpriteRenderer sprite;
 
-    [SerializeField]
-    private float velocidadeDeMovimento;
+    public float velocidadeDeMovimento;
 
     [SerializeField]
     private Vector2 direcao;
@@ -66,4 +65,16 @@ public class PlayerCtrl : MonoBehaviour
             this.sprite.flipX = true;
         }
     }
+
+    public void AumentarVelocidade (float mudanca){
+        this.velocidadeDeMovimento += Mathf.Abs(mudanca);
+    }
+
+    public void DiminuirVelocidade (float mudanca){
+        this.velocidadeDeMovimento -= Mathf.Abs(mudanca);
+    }
+
+    
+
+
 }
