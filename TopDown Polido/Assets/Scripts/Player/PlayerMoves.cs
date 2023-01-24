@@ -22,6 +22,10 @@ public class PlayerMoves : MonoBehaviour
 
     public Animator animator;
 
+    public Transform pontoParaChaveSeguir;
+
+    public Key chaveSeguindo;
+
     //public float moveSpeed = 5f;
 
     //Vector2 movement;
