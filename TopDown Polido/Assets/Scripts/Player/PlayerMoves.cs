@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerMoves : MonoBehaviour
 {
+    public static bool GameOver = false;
     [SerializeField]
     private Rigidbody2D rb;
-    //public Rigidbody2D rb;
 
     [SerializeField]
     private SpriteRenderer sprite;
@@ -26,18 +26,18 @@ public class PlayerMoves : MonoBehaviour
 
     public Key chaveSeguindo;
 
-    //public float moveSpeed = 5f;
-
-    //Vector2 movement;
-
     private void Awake() {
         this.direcaoDeMovimento = DirecaoDeMovimento.Direita;
+        GameOver = false;
     }
 
     void Update()
     {
-        //movement.x = Input.GetAxisRaw("Horizontal");
-        //movement.y = Input.GetAxisRaw("Vertical");
+        if (GameOver)
+        {
+
+            return;
+        }
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
@@ -58,14 +58,8 @@ public class PlayerMoves : MonoBehaviour
         {
             animator.SetFloat("Direction", 0);
         }
-
     }
-
-    void FixedUpdate()
-    {
-        //rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
-    }
-
+    
     private void LateUpdate() {
         AtualizarAnimacao();
     }
@@ -102,8 +96,5 @@ public class PlayerMoves : MonoBehaviour
     public void DiminuirVelocidade (float mudanca){
         this.velocidadeDeMovimento -= Mathf.Abs(mudanca);
     }
-
     
-
-
 }

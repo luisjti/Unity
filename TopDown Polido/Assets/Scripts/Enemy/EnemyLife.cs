@@ -22,6 +22,9 @@ public class EnemyLife : MonoBehaviour
     [SerializeField]
     private Color corPadrao;
 
+    [SerializeField]
+    private LifeScaller vidaSprite;
+
     private void Awake() {
         this.vidaAtual = this.vidaMax; //O inimigo tem a vida atual igual a vida máxima 
         this.barraDeVida.VidaMaximaDoSlider = this.vidaMax; //A barra de vida tem a vida máxima igual a vida máxima
@@ -35,7 +38,7 @@ public class EnemyLife : MonoBehaviour
         this.vidaAtual -= Mathf.Abs(dano); //Retira da vida do inimigo, o dano que lhe causaram
 
         this.barraDeVida.VidaAtualDoSlider = this.vidaAtual; //Atualiza o slider que a vida atual mudou
-        
+        vidaSprite.RecebeDano(dano);
         if (this.vidaAtual <= 0){
             state = EstadosData.Death;
             animator.SetInteger("estado",(int)state);

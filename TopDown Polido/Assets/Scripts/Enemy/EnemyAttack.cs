@@ -20,12 +20,18 @@ public class EnemyAttack : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.tag == "Player")
         {
-            PlayerLife player = other.GetComponent<PlayerLife>();
-            state = EstadosData.Attack;
+		state = EstadosData.Attack;
             animator.SetInteger("estado", (int)state);
+            PlayerLife player = other.GetComponent<PlayerLife>();
+            
             if (!player.invulneravel){
                 player.ReceberDano(danoDoInimigo);
             } 
         }
     }
+	private void OnTriggerExit2D(Collider2D other) {
+		state = EstadosData.Idle;
+            animator.SetInteger("estado", (int)state);
+		
+}
 }
