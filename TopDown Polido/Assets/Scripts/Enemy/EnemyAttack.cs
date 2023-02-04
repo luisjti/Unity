@@ -25,6 +25,7 @@ public class EnemyAttack : MonoBehaviour
             PlayerLife player = other.GetComponent<PlayerLife>();
             
             if (!player.invulneravel){
+                soundFX.playSound(sound.ATTACK_GREEN);
                 player.ReceberDano(danoDoInimigo);
             } 
         }

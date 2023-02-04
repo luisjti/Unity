@@ -58,6 +58,8 @@ public class PlayerMoves : MonoBehaviour
         {
             animator.SetFloat("Direction", 0);
         }
+
+
     }
     
     private void LateUpdate() {

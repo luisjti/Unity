@@ -6,6 +6,7 @@ using UnityEngine.Rendering.Universal;
 public class PlayerLight : MonoBehaviour
 {
     private ControlLight controladorDeLuz;
+    private PlayerLife pf;
     //private PlayerLife pf; 
 
     void Start()
@@ -28,6 +29,8 @@ public class PlayerLight : MonoBehaviour
     public void ApagaLuzParaGameOver()
     {
         controladorDeLuz.ApagaLuzParaGameOver();
-	  
+	  pf.ReceberDano(9999);  
     }
+
+
 }

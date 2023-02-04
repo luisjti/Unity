@@ -20,6 +20,7 @@ public class PlayerPotions : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (((1<<other.gameObject.layer) & layersPocao) != 0){ //Se for uma poção
+            soundFX.playSound(sound.HEAL);
             if (other.gameObject.CompareTag("Vida")){
                 aplicarVida(valorVidaPocao);    //Adiciona a vida
             }else if (other.gameObject.CompareTag("Veneno")){

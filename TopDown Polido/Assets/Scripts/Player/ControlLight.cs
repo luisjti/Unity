@@ -9,14 +9,17 @@ public class ControlLight : MonoBehaviour
 
     private Light2D playerLight;
     [SerializeField]
+    private int constanteReducaoLuz = 50;
     private float velocidadeDeReducaoDaLuz = 0.01f;
     [SerializeField]
     private float velocidadeAumentoDaLuz = 0.5f;
+
 
     private bool reduzindoLuz = true;
        
     void Start()
     {
+        velocidadeDeReducaoDaLuz = constanteReducaoLuz/100.0f;
         playerLight = GetComponent<Light2D>();
     }
 

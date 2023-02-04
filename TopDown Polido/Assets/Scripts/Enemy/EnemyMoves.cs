@@ -70,6 +70,7 @@ public class EnemyMoves : MonoBehaviour
 	  
         Vector2 posicaoAlvo = this.alvo.position;
         Vector2 posicaoAtual = this.transform.position;
+        //soundFX.playSound(sound.FOLLOW);
 
         float distanciaAtual = Vector2.Distance(posicaoAtual, posicaoAlvo); //O quão perto o player está
 

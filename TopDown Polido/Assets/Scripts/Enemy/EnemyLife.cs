@@ -42,6 +42,7 @@ public class EnemyLife : MonoBehaviour
         if (this.vidaAtual <= 0){
             state = EstadosData.Death;
             animator.SetInteger("estado",(int)state);
+            soundFX.playSound(sound.DEATH_ENEMY);
             GameObject.Destroy(this.gameObject); //Inimigo morreu
         }else {
             //Inimigo tomou dano, não ativa pois os inimigos usam da cor padrão para se destacarem dos demais
