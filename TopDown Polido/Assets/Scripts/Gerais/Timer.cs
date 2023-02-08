@@ -11,11 +11,11 @@ public class Timer : MonoBehaviour
     private float tempoAtualDaPartida;
     [SerializeField]
     private TextMeshProUGUI textoDoTempoRestante;
-
+    private const float tempoZeradoNaPartida = 0f;
+    
     private void Start()
     {
-        tempoMaximoDaPartida = 60f;
-        tempoAtualDaPartida = 0f;
+        ReiniciaTempoPartida();
     }
 
 
@@ -25,19 +25,24 @@ public class Timer : MonoBehaviour
     }
 
     private void contarTempo() {
-        if (tempoMaximoDaPartida != tempoAtualDaPartida)
+        if (tempoMaximoDaPartida > tempoAtualDaPartida)
         {
             tempoAtualDaPartida += Time.deltaTime;
-            float tmp = tempoMaximoDaPartida - tempoAtualDaPartida;
+            float tmp = Mathf.Clamp(tempoMaximoDaPartida - tempoAtualDaPartida, tempoZeradoNaPartida, tempoMaximoDaPartida);
             var str = $"Tempo: {(int)tmp} segundos";
-            Debug.Log(str);
             textoDoTempoRestante.text = str;
         }
         else
         {
-            tempoAtualDaPartida = 0f;
-            //Chamar funcao de morte por falta de tempo
+            PlayerMoves.GameOver = true;
+            FindObjectOfType<PlayerLife>().MostraMenuGameOver();
         }
+    }
+
+    public void ReiniciaTempoPartida()
+    {
+        tempoMaximoDaPartida = 60f;
+        tempoAtualDaPartida = 0f;
     }
 
 

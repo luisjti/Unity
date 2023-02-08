@@ -34,10 +34,8 @@ public class PlayerMoves : MonoBehaviour
     void Update()
     {
         if (GameOver)
-        {
-
             return;
-        }
+        
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 

@@ -15,11 +15,18 @@ public class soundFX : MonoBehaviour
     void Start()
     {
         audio = GetComponent<AudioSource>();
+        if (audio == null)
+            Debug.Log("audio e nulo");
         instance = this;
     }
 
     public static void playSound(sound currentSound)
     {
+        if(instance == null)
+        {
+            Debug.Log("audiosource e nulo");
+            return;
+        }
         switch (currentSound)
         {
             case sound.ATTACK_PLAYER:

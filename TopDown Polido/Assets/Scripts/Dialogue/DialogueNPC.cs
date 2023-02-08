@@ -10,6 +10,9 @@ public class DialogueNPC : MonoBehaviour
     public string[] dialogo;
     private int indice = 0;
 
+    [SerializeField]
+    private GameObject textoDeAjuda;
+
     //public GameObject botaoProximoDialogo;
     public float velocidadeTexto= 3f;
     public bool pertoParaFalar = false;
@@ -76,15 +79,22 @@ public class DialogueNPC : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             pertoParaFalar = true;
+            textoDeAjuda.SetActive(true);
         }
+    }
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+        textoDeAjuda.SetActive(true);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        textoDeAjuda.SetActive(false);
+        limparTela();
         if (collision.CompareTag("Player"))
         {
             pertoParaFalar = false;
-            limparTela();
         }
     }
 }

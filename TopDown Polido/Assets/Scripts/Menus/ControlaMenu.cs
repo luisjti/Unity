@@ -19,7 +19,7 @@ public class ControlaMenu : MonoBehaviour
 
     public void IniciarJogo()
     {
-        SceneManager.LoadScene("Nivel Zero");
+        SceneManager.LoadScene("Nivel_Zero");
     }
 
     public void SairDoJogo()

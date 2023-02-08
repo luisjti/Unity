@@ -1,29 +1,37 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 public class ControlLight : MonoBehaviour
 {
-
+    private const float DIVISOR_VELOCIDADE_LUZ = 10f;
     private Light2D playerLight;
     [SerializeField]
-    private int constanteReducaoLuz = 50;
-    private float velocidadeDeReducaoDaLuz = 0.01f;
+    private int velocidadeReducaoDaLuz = 50;
     [SerializeField]
-    private float velocidadeAumentoDaLuz = 0.5f;
+    private int velocidadeDeAumentoDaLuz = 20;
+    [SerializeField]
+    private GameObject vidaDoPlayer;
+    [SerializeField]
+    private int luzMaximaInner = 4;
+    [SerializeField]
+    private int luzMaximaOuter = 5;
+    
+    private float velocidadeDeReducaoDaLuz;
+    private float velocidadeAumentoDaLuz;
 
 
     private bool reduzindoLuz = true;
        
     void Start()
     {
-        velocidadeDeReducaoDaLuz = constanteReducaoLuz/100.0f;
+        velocidadeDeReducaoDaLuz = velocidadeReducaoDaLuz/ DIVISOR_VELOCIDADE_LUZ;
+        velocidadeAumentoDaLuz = velocidadeDeAumentoDaLuz / DIVISOR_VELOCIDADE_LUZ;
         playerLight = GetComponent<Light2D>();
-    }
 
-    // Update is called once per frame
+        playerLight.pointLightInnerRadius = luzMaximaInner;
+        playerLight.pointLightOuterRadius = luzMaximaOuter;
+    }
+    
     void Update()
     {
         if (PlayerMoves.GameOver)
@@ -36,18 +44,20 @@ public class ControlLight : MonoBehaviour
         else
             AumentaLuz();
 
-        if (InnerRadiusLuzNaoChegouLimiteInferior() && OuterRadiusLuzChegouLimiteInferior())
+        if (InnerLimiteInferior() && OuterLimiteInferior())
         {
             PlayerMoves.GameOver = true;
+            vidaDoPlayer.SetActive(false);
+            FindObjectOfType<PlayerLife>().MostraMenuGameOver();
         }
     }
 
     private void ReduzLuz()
     {
-        if(InnerRadiusLuzNaoChegouLimiteInferior()){
+        if(!InnerLimiteInferior()){
             playerLight.pointLightInnerRadius -= velocidadeDeReducaoDaLuz * Time.deltaTime;
         }
-        if(!InnerRadiusLuzNaoChegouLimiteInferior())
+        else
         {
             playerLight.pointLightOuterRadius -= velocidadeDeReducaoDaLuz * Time.deltaTime;
         }
@@ -62,25 +72,25 @@ public class ControlLight : MonoBehaviour
     }
 
     private void AumentaLuz(){
-        if(InnerRadiusNaoChegouLimiteSuperior())
+        if(InnerLimiteSupeior())
             playerLight.pointLightInnerRadius += velocidadeAumentoDaLuz * Time.deltaTime;
-        if(OuterLightNaoChegouLimiteSuperior())
+        if(OuterLimiteSuperior())
             playerLight.pointLightOuterRadius += velocidadeAumentoDaLuz * Time.deltaTime;        
     }
 
-    private bool InnerRadiusNaoChegouLimiteSuperior(){
-        return playerLight.pointLightInnerRadius <= 3;
+    private bool InnerLimiteSupeior(){
+        return playerLight.pointLightInnerRadius <= luzMaximaInner;
     }
 
-    private bool OuterLightNaoChegouLimiteSuperior(){
-        return playerLight.pointLightOuterRadius <= 4;
+    private bool OuterLimiteSuperior(){
+        return playerLight.pointLightOuterRadius <= luzMaximaOuter;
     }
 
-    private bool InnerRadiusLuzNaoChegouLimiteInferior(){
-        return playerLight.pointLightInnerRadius > 1;
+    private bool InnerLimiteInferior(){
+        return playerLight.pointLightInnerRadius <= 0;
     }
 
-    private bool OuterRadiusLuzChegouLimiteInferior()
+    private bool OuterLimiteInferior()
     {
         return playerLight.pointLightOuterRadius <= 0;
     }
