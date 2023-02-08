@@ -32,6 +32,7 @@ public class Door : MonoBehaviour
     {
         if (esperandoAbrir)
         {
+		//Debug.Log(Vector2.Distance(pm.chaveSeguindo.transform.position, transform.position));
             //Distância entre a chave e a porta chegou no mínimo
             if (Vector2.Distance(pm.chaveSeguindo.transform.position, transform.position) < 0.1f) 
             { 
@@ -54,7 +55,7 @@ public class Door : MonoBehaviour
             //Teleporte-se para algum outro lugar
       
             //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            SceneManager.LoadScene("Nivel Um");
+            SceneManager.LoadScene("Nivel_Um");
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
