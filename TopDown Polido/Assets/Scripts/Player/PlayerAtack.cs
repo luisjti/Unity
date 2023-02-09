@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,11 +41,31 @@ public class PlayerAtack : MonoBehaviour
     void Update()
     {
         if(Input.GetMouseButtonDown(0)){    //Se apertar o esquerdo do mouse 
-            soundFX.playSound(sound.ATTACK_PLAYER);
-            animator.SetInteger("Attack", 1);
-            Atacar();           //Você ataca
-            StartCoroutine(waiter());
+                soundFX.playSound(sound.ATTACK_PLAYER);
+                animator.SetInteger("Attack", 1);    
+                Atacar();           //Você ataca
+                StartCoroutine(waiter());
         }
+    }
+
+    private bool PodeAtacar(Transform inimigo)
+    {
+        var posicaoInimigo = new Vector2(transform.position.x, transform.position.y);
+        var posicaoPlayer = new Vector2(inimigo.transform.position.x, inimigo.transform.position.y);
+
+        var vetorInimigoPlayer = posicaoPlayer - posicaoInimigo;
+        var tamanhoRayCast = posicaoInimigo + vetorInimigoPlayer.normalized * raioDeAtaque;
+
+        RaycastHit2D hit = Physics2D.Raycast(posicaoInimigo, vetorInimigoPlayer.normalized, raioDeAtaque, 3);
+        Debug.DrawLine(posicaoInimigo, tamanhoRayCast, Color.red);
+
+        if (hit.collider == null)
+            return false;
+        if ("Cenario".Equals(hit.collider.tag))
+            return false;
+        Debug.Log("hit tag:" + hit.collider.tag);
+        Debug.Log("hit name:" + hit.collider.name);
+        return true;
     }
 
     private void OnDrawGizmos() {
@@ -72,9 +93,12 @@ public class PlayerAtack : MonoBehaviour
         AtualizarDirecaoDeAtaque();
         Collider2D colliderInimigo = Physics2D.OverlapCircle(pontoDeAtaque.position, this.raioDeAtaque, this.layersAtacaveis); //Cria a zona de ataque do player
         if (colliderInimigo != null){
-            EnemyLife inimigo = colliderInimigo.GetComponent<EnemyLife>(); //Se encontrou um inimigo, descobre quem é
-            if (inimigo != null){
-                inimigo.ReceberDano(this.danoDeAtaque); //Se encontrou quem é, causa dano nele
+            if (PodeAtacar(colliderInimigo.transform))
+            {    
+                EnemyLife inimigo = colliderInimigo.GetComponent<EnemyLife>(); //Se encontrou um inimigo, descobre quem é
+                if (inimigo != null){
+                    inimigo.ReceberDano(this.danoDeAtaque); //Se encontrou quem é, causa dano nele
+                }
             }
         }
     }

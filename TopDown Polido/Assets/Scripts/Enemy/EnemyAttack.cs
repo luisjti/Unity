@@ -10,18 +10,27 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField]
     private float danoDoInimigo = 0.7f;
     [SerializeField]
-    private int LayerPlayer = 3;
+    private LayerMask layerPlayer;
     [SerializeField]
     private GameObject player;
     [SerializeField]
     private float distanciaAtaque = 1.5f;
+    
 
     void Awake()
     {
         animator = GetComponent<Animator>();
     }
 
-    void Update()
+    //void Update()
+    //{
+    //    if (PlayerEstaDentroAreaDeAtaque())// && NaoEAnimacaoDeAtaque())
+    //    {
+    //        AtacarPlayer();
+    //    }
+    //}
+
+    private void FixedUpdate()
     {
         if (PlayerEstaDentroAreaDeAtaque())// && NaoEAnimacaoDeAtaque())
         {
@@ -34,20 +43,19 @@ public class EnemyAttack : MonoBehaviour
         var posicaoInimigo = new Vector2(transform.position.x, transform.position.y);
         var posicaoPlayer = new Vector2(player.transform.position.x, player.transform.position.y);
 
-        var p3 = posicaoInimigo - posicaoPlayer;
+        var vetorInimigoPlayer = posicaoPlayer - posicaoInimigo;
+        var tamanhoRayCast = posicaoInimigo + vetorInimigoPlayer.normalized * distanciaAtaque;
 
-        RaycastHit2D hit = Physics2D.Raycast(posicaoInimigo, p3.normalized, distanciaAtaque, LayerMask.GetMask("Player"));
-        //Debug.DrawLine(posicaoInimigo, Vector3.Distance(transform.position, player.transform.position), Color.blue);
+        RaycastHit2D hit = Physics2D.Raycast(posicaoInimigo, vetorInimigoPlayer.normalized, distanciaAtaque, layerPlayer);
+        //Debug.DrawLine(posicaoInimigo, tamanhoRayCast, Color.blue);
 
-        //Debug.DrawLine(posicaoInimigo, posicaoPlayer, Color.red);
-
-        //Debug.Log("Hit tag: " + hit.collider.name);
-        //if (hit.collider != null)
-        //    return hit.collider.tag.Equals("Player");
-        //return false;
-        var distanciaPlayer = Vector3.Distance(transform.position, player.transform.position);
-        //Debug.Log("Distancia player: " + distanciaPlayer);
-        return distanciaPlayer <= distanciaAtaque;
+        if (hit.collider == null)
+            return false;
+        if ("Cenario".Equals(hit.collider.tag))
+            return false;
+        //Debug.Log("hit tag:" + hit.collider.tag);
+        //Debug.Log("hit name:" + hit.collider.name);
+        return true;
     }
 
     private bool NaoEAnimacaoDeAtaque()
