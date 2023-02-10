@@ -13,9 +13,10 @@ public class DialogueNPC : MonoBehaviour
     [SerializeField]
     private GameObject textoDeAjuda;
 
-    //public GameObject botaoProximoDialogo;
     public float velocidadeTexto= 3f;
     public bool pertoParaFalar = false;
+
+    private Coroutine co;
 
     private void Awake()
     {
@@ -33,19 +34,19 @@ public class DialogueNPC : MonoBehaviour
             else
             {
                 panelDialogo.SetActive(true);
-                StartCoroutine(Digitar());
+                co = StartCoroutine(Digitar());
             }
         }
-        // if (textoDialogo.text == dialogo[indice])
-        // {
-        //     botaoProximoDialogo.SetActive(true);
-        // }
     }
 
     public void limparTela()
     {
         textoDialogo.text = "";
         indice = 0;
+        if (co != null)
+        {
+            StopCoroutine(co);
+        }
         panelDialogo.SetActive(false);
     }
 
@@ -60,7 +61,6 @@ public class DialogueNPC : MonoBehaviour
     
     public void ProximaLinha()
     {
-        //botaoProximoDialogo.SetActive(false);
 
         if (indice < dialogo.Length -1)
         {

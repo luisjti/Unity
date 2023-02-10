@@ -12,9 +12,12 @@ public class Timer : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI textoDoTempoRestante;
     private const float tempoZeradoNaPartida = 0f;
-    
+    private float tempoMaximoOriginalDaPartida;
+
+
     private void Start()
     {
+        tempoMaximoOriginalDaPartida = tempoMaximoDaPartida;
         ReiniciaTempoPartida();
     }
 
@@ -29,7 +32,7 @@ public class Timer : MonoBehaviour
         {
             tempoAtualDaPartida += Time.deltaTime;
             float tmp = Mathf.Clamp(tempoMaximoDaPartida - tempoAtualDaPartida, tempoZeradoNaPartida, tempoMaximoDaPartida);
-            var str = $"Tempo: {(int)tmp} segundos";
+            var str = $"{(int)tmp} s";
             textoDoTempoRestante.text = str;
         }
         else
@@ -41,7 +44,7 @@ public class Timer : MonoBehaviour
 
     public void ReiniciaTempoPartida()
     {
-        tempoMaximoDaPartida = 60f;
+        tempoMaximoDaPartida = tempoMaximoOriginalDaPartida;
         tempoAtualDaPartida = 0f;
     }
 
