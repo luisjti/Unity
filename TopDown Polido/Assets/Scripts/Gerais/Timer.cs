@@ -39,6 +39,7 @@ public class Timer : MonoBehaviour
         {
             PlayerMoves.GameOver = true;
             FindObjectOfType<PlayerLife>().MostraMenuGameOver();
+            FindObjectOfType<PlayerLight>().ApagaLuzParaGameOver();
         }
     }
 

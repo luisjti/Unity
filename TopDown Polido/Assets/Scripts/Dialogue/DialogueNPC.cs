@@ -83,9 +83,13 @@ public class DialogueNPC : MonoBehaviour
         }
     }
 
-    void OnTriggerStay2D(Collider2D other)
+    void OnTriggerStay2D(Collider2D collision)
     {
-        textoDeAjuda.SetActive(true);
+        if (collision.CompareTag("Player"))
+        {
+            pertoParaFalar = true;
+            textoDeAjuda.SetActive(true);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)

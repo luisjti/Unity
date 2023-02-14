@@ -42,7 +42,7 @@ public class PlayerLife : MonoBehaviour
             soundFX.playSound(sound.DEATH_PLAYER);
             ApagaLuzPlayer();
             MostraMenuGameOver();
-            GameObject.Destroy(this.gameObject); //Player morreu
+            //GameObject.Destroy(this.gameObject); //Player morreu
             //ReiniciarLevel(); //Após 2 segundos, reinicia a fase
         }
         else {
@@ -87,7 +87,6 @@ public class PlayerLife : MonoBehaviour
 
     public void MostraMenuGameOver()
     {
-        Debug.Log("mostrando tela game over");
         menuGameOver.SetActive(true);
     }
 
