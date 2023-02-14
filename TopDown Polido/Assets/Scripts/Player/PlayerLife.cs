@@ -16,6 +16,8 @@ public class PlayerLife : MonoBehaviour
 
     private SpriteRenderer sprite;
 
+    private Rigidbody2D rb;
+
     public bool invulneravel = false;
 
     [SerializeField]
@@ -28,6 +30,7 @@ public class PlayerLife : MonoBehaviour
             this.barraDeVidaP.VidaAtualDoSlider = this.vidaAtualP; //A barra de vida tem a vida atual igual a vida atual
         }
         sprite = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     public void ReceberDano(float dano){
@@ -41,9 +44,8 @@ public class PlayerLife : MonoBehaviour
         if (this.vidaAtualP <= 0){
             soundFX.playSound(sound.DEATH_PLAYER);
             ApagaLuzPlayer();
+            rb.bodyType = RigidbodyType2D.Static;
             MostraMenuGameOver();
-            //GameObject.Destroy(this.gameObject); //Player morreu
-            //ReiniciarLevel(); //Após 2 segundos, reinicia a fase
         }
         else {
             StartCoroutine(PiscarSpriteSofreuDano()); //Realiza a animação de dano

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnPotion : MonoBehaviour
+public class SpawnItems : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] objetosPrefab;
@@ -12,6 +12,7 @@ public class SpawnPotion : MonoBehaviour
     private int numeroItensDaFase = 1;
     [SerializeField]
     private float spawnTime;
+    private bool[] posicaoOcupada;
     private int i;
     private int randomPos, randomItem;
 
@@ -23,13 +24,25 @@ public class SpawnPotion : MonoBehaviour
         { //Invoca a função de criação de itens aleatórios no início do game
             Invoke("SpawnRandom", spawnTime); 
         }
-
+        /*
+        for (i=0; i < posicoes.Length -1; i++)
+        {
+            posicaoOcupada[i] = false;
+        }*/
+        
     }
 
     private void SpawnRandom()
     {
         randomItem = Random.Range(0, objetosPrefab.Length); //Sorteia qual o tipo de item
         randomPos = Random.Range(0, posicoes.Length); //Sorteia qual o local para o item
+        /*
+        posicaoOcupada[randomPos] = true;
+        
+        while (posicaoOcupada[randomPos])
+        {
+                randomPos = Random.Range(0, posicoes.Length);
+        }*/
 
         //Cria um item com o tipo sorteado, em um local sorteado
         Instantiate(objetosPrefab[randomItem], posicoes[randomPos].transform.position, transform.rotation); 

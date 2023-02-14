@@ -19,6 +19,7 @@ public class ControlLight : MonoBehaviour
     private float velocidadeDeReducaoDaLuz;
     private float velocidadeAumentoDaLuz;
 
+    private Rigidbody2D rb;
 
     private bool reduzindoLuz = true;
        
@@ -27,6 +28,7 @@ public class ControlLight : MonoBehaviour
         velocidadeDeReducaoDaLuz = velocidadeReducaoDaLuz/ DIVISOR_VELOCIDADE_LUZ;
         velocidadeAumentoDaLuz = velocidadeDeAumentoDaLuz / DIVISOR_VELOCIDADE_LUZ;
         playerLight = GetComponent<Light2D>();
+        rb = GetComponent<Rigidbody2D>();
 
         playerLight.pointLightInnerRadius = luzMaximaInner;
         playerLight.pointLightOuterRadius = luzMaximaOuter;
@@ -48,6 +50,7 @@ public class ControlLight : MonoBehaviour
         {
             PlayerMoves.GameOver = true;
             vidaDoPlayer.SetActive(false);
+            rb.bodyType = RigidbodyType2D.Static;
             FindObjectOfType<PlayerLife>().MostraMenuGameOver();
         }
     }
