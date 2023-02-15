@@ -51,10 +51,16 @@ public class PlayerMoves : MonoBehaviour
         animator.SetFloat("Speed", direcao.sqrMagnitude);
 
         if(direcao.y > 0){
-            animator.SetFloat("Direction", 1);
+            animator.SetInteger("Direction", 1);
         }else if (direcao.y < 0)
         {
-            animator.SetFloat("Direction", 0);
+            animator.SetInteger("Direction", 0);
+        }
+	  if(direcao.x > 0){
+            animator.SetInteger("Direction", 3);
+        }else if (direcao.x < 0)
+        {
+            animator.SetInteger("Direction", 2);
         }
 
 
