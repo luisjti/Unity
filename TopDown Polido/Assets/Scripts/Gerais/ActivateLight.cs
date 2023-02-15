@@ -19,7 +19,7 @@ public class ActivateLight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector2.Distance(pm.transform.position, transform.position) < 8.0f) 
+        if (Vector2.Distance(pm.transform.position, transform.position) < 5.0f) 
             { 
 			fireLight.intensity = 1f;
 			
