@@ -74,12 +74,7 @@ public class PlayerLife : MonoBehaviour
         }
         this.invulneravel = false; //Após a animação de dano, desativa a invulnerabilidade
     }
-
-    void ReiniciarLevel ()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
+    
     private void ApagaLuzPlayer()
     {
         PlayerMoves.GameOver = true;

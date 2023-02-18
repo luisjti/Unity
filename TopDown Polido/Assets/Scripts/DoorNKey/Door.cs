@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+using Assets.Scripts.DoorNKey;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Door : MonoBehaviour
 {
@@ -26,8 +24,7 @@ public class Door : MonoBehaviour
         pm = FindObjectOfType<PlayerMoves>();
         sr = GetComponent<SpriteRenderer>();
     }
-
-
+    
     void Update()
     {
         if (esperandoAbrir)
@@ -53,11 +50,13 @@ public class Door : MonoBehaviour
         if (estaAberta)
         {
             //Teleporte-se para algum outro lugar
-      
+
             //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            SceneManager.LoadScene("Nivel_Um");
+            //SceneManager.LoadScene("Nivel_Um");
+            GerenciadorDeNivel.CarregaProximoNivel();
         }
     }
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player") //Se econtrou com o Player
