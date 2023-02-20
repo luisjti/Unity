@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAtack : MonoBehaviour
@@ -33,18 +31,17 @@ public class PlayerAtack : MonoBehaviour
 
     public Animator animator;
 
-
     private void Awake() {
         pontoDeAtaque = pontoDeAtaqueDaDireita; //Player começa atacando para a direita
     }
 
     void Update()
     {
-        if(Input.GetMouseButtonDown(0)){    //Se apertar o esquerdo do mouse 
+        if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)){    //Se apertar o esquerdo do mouse ou espaço
                 soundFX.playSound(sound.ATTACK_PLAYER);
                 animator.SetInteger("Attack", 1);    
                 Atacar();           //Você ataca
-                StartCoroutine(waiter());
+                StartCoroutine(waiter()); //Espera um tempo até poder atacar novamente
         }
     }
 
@@ -129,7 +126,5 @@ public class PlayerAtack : MonoBehaviour
         //Wait for 1 second
         yield return new WaitForSeconds(0.75f);
         animator.SetInteger("Attack", 0);
-
-
     }
 }

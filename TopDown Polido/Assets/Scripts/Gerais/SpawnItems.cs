@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnItems : MonoBehaviour
@@ -36,14 +34,7 @@ public class SpawnItems : MonoBehaviour
     {
         randomItem = Random.Range(0, objetosPrefab.Length); //Sorteia qual o tipo de item
         randomPos = Random.Range(0, posicoes.Length); //Sorteia qual o local para o item
-        /*
-        posicaoOcupada[randomPos] = true;
         
-        while (posicaoOcupada[randomPos])
-        {
-                randomPos = Random.Range(0, posicoes.Length);
-        }*/
-
         //Cria um item com o tipo sorteado, em um local sorteado
         Instantiate(objetosPrefab[randomItem], posicoes[randomPos].transform.position, transform.rotation); 
     }

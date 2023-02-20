@@ -752,9 +752,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58cbdba83c26cf94a86254fda78b91ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  valorVidaPocao: 5
-  valorDanoPocao: 7.5
-  valorVelocidadePocao: 2.5
+  valorVidaPocao: 6
+  valorDanoPocao: 3
+  valorVelocidadePocao: 1.5
   layersPocao:
     serializedVersion: 2
     m_Bits: 128

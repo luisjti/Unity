@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,8 +17,6 @@ public class PlayerLife : MonoBehaviour
 
     private SpriteRenderer sprite;
 
-    private Rigidbody2D rb;
-
     public bool invulneravel = false;
 
     [SerializeField]
@@ -30,7 +29,6 @@ public class PlayerLife : MonoBehaviour
             this.barraDeVidaP.VidaAtualDoSlider = this.vidaAtualP; //A barra de vida tem a vida atual igual a vida atual
         }
         sprite = GetComponent<SpriteRenderer>();
-        rb = GetComponent<Rigidbody2D>();
     }
 
     public void ReceberDano(float dano){
@@ -42,13 +40,10 @@ public class PlayerLife : MonoBehaviour
         this.barraDeVidaP.VidaAtualDoSlider = this.vidaAtualP; //Atualiza no slider o dano sofrido
         
         if (this.vidaAtualP <= 0){
-            soundFX.playSound(sound.DEATH_PLAYER);
-            ApagaLuzPlayer();
-            rb.bodyType = RigidbodyType2D.Static;
-            MostraMenuGameOver();
+            Morrer();
         }
         else {
-            StartCoroutine(PiscarSpriteSofreuDano()); //Realiza a animação de dano
+            StartCoroutine(MudarSpriteSofreuDano()); //Realiza a animação de dano
         }
     }
 
@@ -62,16 +57,20 @@ public class PlayerLife : MonoBehaviour
         }
     }
 
-    IEnumerator PiscarSpriteSofreuDano()
+    private void Morrer()
     {
-        int i = 0;
-        for (; i<10; i++) //Faz isso por dez segundos
-        {
-            sprite.enabled = false; //Desliga a sprite por 0.1 segundos
-            yield return new WaitForSecondsRealtime(0.05f);
-            sprite.enabled = true; //Liga a sprite por 0.1 segundos
-            yield return new WaitForSecondsRealtime(0.05f);
-        }
+        soundFX.playSound(sound.DEATH_PLAYER); //Som de morte
+        ApagaLuzPlayer(); //Desliga a luz 
+        this.barraDeVidaP.gameObject.SetActive(false); //Desativa a barra de vida
+        MostraMenuGameOver(); //Exibe o menu de game over
+    }
+
+    IEnumerator MudarSpriteSofreuDano()
+    {
+        sprite.color = Color.red; //Muda a cor da sprite durante 1 segundo
+        yield return new WaitForSecondsRealtime(1f);
+        sprite.color = Color.white; //Muda a cor da sprite para a padrão (branco)
+        yield return new WaitForSecondsRealtime(0.5f);
         this.invulneravel = false; //Após a animação de dano, desativa a invulnerabilidade
     }
     
