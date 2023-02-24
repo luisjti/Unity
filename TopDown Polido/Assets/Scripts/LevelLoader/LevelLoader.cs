@@ -13,4 +13,9 @@ public class LevelLoader : MonoBehaviour
     {
         SceneManager.LoadScene("MenuInicial");
     }
+
+    public void Sair()
+    {
+        Application.Quit();
+    }
 }
